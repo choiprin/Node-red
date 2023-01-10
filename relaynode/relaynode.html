@@ -1,0 +1,70 @@
+<script type="text/javascript">
+    RED.nodes.registerType('릴레이노드',{
+        category: '릴레이노드',
+        color: '#ffa500',
+        defaults: {
+	    	name: {value:""},
+			id : {value : "", required: true},
+            startTime : {value : ""},
+            endTime : {value : ""},
+            heat : {value : ""},
+            cool : {value : ""},
+            exha : {value : ""},
+            led : {value : ""}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "file.png",
+        label: function() {
+            return this.name||"릴레이노드";
+        },
+        oneditsave: function() {
+            var id = $("#node-config-input-id").val();
+            //var startTime = $("#node-config-input-startTime").val();
+            //var endTime = $("#node-config-input-endTime").val(); 2022-11-17 수정
+            //console.log(id);
+            var node = this;
+            node.id = id;
+            //node.startTime = startTime;
+            //node.endTime = endTime; 2022-11-17 수정
+        },
+        oneditprepare : function() {
+            $("#node-config-input-id").show();
+            var node = this;
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="릴레이노드">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> 이름</label>
+        <input type="text" id="node-input-name" placeholder="이름">
+    </div>
+    <div class="form-row">
+        <label for="node-input-id"><i class="fa fa-tasks"></i> MAC 주소<span data-i18n="common.label.id"></span></label>
+        <input type="text" id="node-input-id" data-i18n="[placeholder]MAC 주소 입력 ex) 8caa7c832378">
+    </div>
+    </br>
+    <div class="form-tips"><b>도움말</b>
+    </br> MAC 주소는 ESP32 겉면의 12자리 숫자를 입력해주시기 바랍니다.
+    </br> 데이터 입력 방식은 두 가지 입니다.
+    </br> <b>1) 개별 릴레이 제어</b>
+    </br> 1번 릴레이 on = {"outNo":1, "value":0}
+    </br> 0번 릴레이 off = {"outNo":0, "value":1}
+    </br> <b>2) 전체 릴레이 제어</b>
+    </br> 0번 1번 off , 2번 3번 on = {"No0":1, "No1":1, "No2":0, "No3":0}
+</div>
+</script>
+
+<script type = "text/html" data-help-name = "릴레이노드">
+    <p>4채널 보드의 릴레이를 스케쥴 기능 없이 제어하는 노드입니다.</p>
+    <h3>출력</h3>
+        <dl class = "message-properties">
+        <dt>payload
+            <span class = "property-type">string | buffer</span>
+        <dd>
+            따로 payload값은 없습니다.</p>
+        </dt>
+    <h3>주의사항</h3>
+    <p>노드에서 자체적으로 MQTT 통신을 하기 때문에 MQTT 노드는 따로 사용하실 필요가 없습니다.</p> 
+</script>
