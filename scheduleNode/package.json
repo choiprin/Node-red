@@ -1,0 +1,23 @@
+{
+  "name": "lighttalk_schedule_nodes",
+  "version": "1.0.6",
+  "description": "schedule node for node-red",
+  "main": "lighttalk.js",
+  "node-red": {
+    "nodes": {
+      "lighttalk_schedule": "lighttalk.js"
+    },
+    "version": ">=2.0.0"
+  },
+  "keywords": [
+    "node-red"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "mqtt": "^4.3.7"
+  },
+  "author": "Yoon Sup Choi",
+  "license": "ISC"
+}

@@ -1,0 +1,85 @@
+<script type="text/javascript">
+    RED.nodes.registerType('라이트토크',{
+        category: '릴레이노드',
+        color: '#C0DEED',
+        defaults: {
+	    	name: {value:""},
+			id : {value : "", required: true}, // 이 부분 없애면 중복오류 해결 2022-12-27
+            startTime : {value : ""},
+            endTime : {value : ""},
+            heat : {value : ""},
+            cool : {value : ""},
+            exha : {value : ""},
+            led : {value : ""}
+        },
+        inputs:1,
+        outputs:4,
+        icon: "file.png",
+        label: function() {
+            return this.name||"라이트토크";
+        },
+        oneditsave: function() {
+            var id = $("#node-config-input-id").val();
+            //var startTime = $("#node-config-input-startTime").val();
+            //var endTime = $("#node-config-input-endTime").val(); 2022-11-17 수정
+            //console.log(id);
+            var node = this;
+            node.id = id;
+            //node.startTime = startTime;
+            //node.endTime = endTime; 2022-11-17 수정
+        },
+        oneditprepare : function() {
+            $("#node-config-input-id").show();
+            var node = this;
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="라이트토크">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> 이름</label>
+        <input type="text" id="node-input-name" placeholder="이름">
+    </div>
+    <div class="form-row">
+        <label for="node-input-id"><i class="fa fa-tasks"></i> MAC 주소<span data-i18n="common.label.id"></span></label>
+        <input type="text" id="node-input-id" data-i18n="[placeholder]MAC 주소 입력 ex) 8caa7c832378">
+    </div>
+    <div class="form-row">
+        <label for="node-input-startTime"><i class="fa fa-calendar"></i> 가동 시작 시간 (언제부터)<span data-i18n="common.label.startTime"></span></label>
+        <input type="datetime-local" id="node-input-startTime">
+    </div>
+    <div class="form-row">
+        <label for="node-input-endTime"><i class="fa fa-calendar"></i> 가동 완료 시간 (언제까지)<span data-i18n="common.label.endTime"></span></label>
+        <input type="datetime-local" id="node-input-endTime">
+    </div>
+    <div class="form-row">
+        <label for="node-input-heat"><i class="fa fa-tag"></i> Heating <span data-i18n="common.label.heat"></span></label>
+        <input type="checkbox" id="node-input-heat">
+        <label for="node-input-cool"><i class="fa fa-tag"></i> Cooling <span data-i18n="common.label.cool"></span></label>
+        <input type="checkbox" id="node-input-cool">
+        <label for="node-input-exha"><i class="fa fa-tag"></i> Exhaust <span data-i18n="common.label.exha"></span></label>
+        <input type="checkbox" id="node-input-exha">
+        <label for="node-input-led"><i class="fa fa-tag"></i> LED <span data-i18n="common.label.led"></span></label>
+        <input type="checkbox" id="node-input-led">
+    </div>
+    </br>
+    <div class="form-tips"><b>도움말  </b>식별번호는 라이트토크 홈페이지의 MAC 주소번호를 입력해주시기 바랍니다. 초록색 연결표시가 뜨지 않으면 연결에 실패한 것이므로 다시 시도해 주십시오. 
+    </br> 스케쥴러는 노드 설정에서 <b>시작 시간</b>과 <b>완료 시간</b>을 달력 표시를 눌러 정해주시고, 정하신 시간동안 작동을 원하시는 기기에 체크해주신 후 Flow를 배포해주세요.
+    </br> 직접 입력으로 스케쥴 날짜를 전달할 때에는 노드 설정의 스케쥴란이 비워져 있어야 합니다.
+    </div>
+</script>
+
+<script type = "text/html" data-help-name = "라이트토크">
+    <p>(주)라이트토크에서 개발한 노드입니다. 4채널 보드의 릴레이를 스케쥴 기능으로 제어하는 노드입니다.</p>
+    <h3>출력</h3>
+        <dl class = "message-properties">
+        <dt>페이로드
+            <span class = "property-type">string | buffer</span>
+        <dd>
+            디버그 노드를 출력으로 연결하시면 기기의 현 상태값을 JSON 형식으로 실시간으로 확인하실 수 있습니다.</p>
+            JSON 형식으로 제어 내역을 전달하면 실시간으로 기기를 제어하실 수 있습니다.</p>
+            스케쥴러를 활용해서 원하는 시간대에 기기를 가동하실 수 있습니다.</p>
+        </dt>
+    <h3>주의사항</h3>
+    <p>노드에서 자체적으로 MQTT 통신을 하기 때문에 MQTT 노드는 따로 사용하실 필요가 없습니다. 또한 구글 플레이스토어의 '라이트토크' 어플을 설치하셔서 기기를 연결하셔야 노드를 사용하실 수 있습니다.</p> 
+</script>
